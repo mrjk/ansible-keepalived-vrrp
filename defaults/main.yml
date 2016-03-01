@@ -34,5 +34,7 @@ keepalived_vrrp_notify_backup:
 keepalived_vrrp_notify_fault:
 keepalived_vrrp_notify:
 
+# Trigger file
+keepalived_vrrp_trigger_file: yes
 
 

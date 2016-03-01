@@ -13,6 +13,16 @@ vrrp_script check_{{ keepalived_vrrp_name }} {
 	rise		{{ keepalived_vrrp_check_rise }}	# required number of successes for OK switch
 }
 
+{% if keepalived_vrrp_trigger_file == True %}
+# Disable trigger file check
+vrrp_script	check_{{ keepalived_vrrp_name }}_trigger {
+	script		"/usr/local/lib/check_keepalived_vrrp_trigger {{ keepalived_vrrp_name }} /var/tmp/keepalived_{{ keepalived_vrrp_name }}"
+	interval	{{ keepalived_vrrp_check_interval }}
+	timeout		{{ keepalived_vrrp_check_timout }}
+	weight		254
+	fall		1
+	rise		1
+}{% endif %}
 
 # VRRP definition
 vrrp_instance {{ keepalived_vrrp_name }} {
@@ -68,9 +78,10 @@ vrrp_instance {{ keepalived_vrrp_name }} {
 
         # Check script
 	track_script {
-		check_{{ keepalived_vrrp_name }}
+		check_{{ keepalived_vrrp_name }}{% if keepalived_vrrp_trigger_file == True %}
+		check_{{ keepalived_vrrp_name }}_trigger{% endif %}
 	}
 
-	notify	"/usr/local/bin/keepalived_notify"
+	notify	"/usr/local/lib/keepalived_notify"
 }
 

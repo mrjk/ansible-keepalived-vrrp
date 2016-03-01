@@ -16,6 +16,13 @@
     mode: "u=rwx,g=rx,o=rx"
   when: keepalived_vrrp_check_script_template is defined
 
+- name: Copy trigger script
+  copy: 
+    src: "check_keepalived_vrrp_trigger"
+    dest: "/usr/local/lib/check_keepalived_vrrp_trigger"
+    mode: "u=rwx,g=rx,o=rx"
+  when: keepalived_vrrp_trigger_file == True
+
 - name: Configure keepalived vrrp
   template:
     src: vrrp.conf.j2
