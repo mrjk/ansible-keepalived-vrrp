@@ -25,7 +25,7 @@ keepalived_vrrp_check_interval: 3
 keepalived_vrrp_check_fall: 2
 keepalived_vrrp_check_rise: 2
 keepalived_vrrp_check_weight: 2
-keepalived_vrrp_check_timout: 10
+keepalived_vrrp_check_timeout: 10
 
 
 # Notifications
@@ -36,5 +36,3 @@ keepalived_vrrp_notify:
 
 # Trigger file
 keepalived_vrrp_trigger_file: yes
-
-
